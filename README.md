@@ -1,3 +1,3 @@
-# Fullstack Authentication Example with Next.js and NextAuth.js
+# Super Doppler
 
-This is the starter project for the fullstack tutorial with Next.js and Prisma. You can find the final version of this project in the [`final`](https://github.com/prisma/blogr-nextjs-prisma/tree/final) branch of this repo.
+The climate of the NFT market is always changing, with the prices of different NFTs fluctuating on a daily basis. In this market, there is a group of super forecasters known as the Cloudz who try to predict the climate of the market and the real-world price movements of NFTs. These Cloudz use Super Doppler to analyze data and report their insights.

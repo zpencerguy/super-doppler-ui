@@ -1,0 +1,147 @@
+// schema.prisma
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model Post {
+  id        String  @id @default(cuid())
+  title     String
+  content   String?
+  published Boolean @default(false)
+  author    User?   @relation(fields: [authorId], references: [id])
+  authorId  String?
+}
+
+model Session {
+  id           String   @id @default(cuid())
+  sessionToken String   @unique @map("session_token")
+  userId       String   @map("user_id")
+  expires      DateTime
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+// model User {
+//   id          String        @id @default(cuid())
+//   name        String?
+//   twitter     String?
+//   email       String?       @unique
+//   createdAt   DateTime      @default(now()) @map(name: "created_at")
+//   updatedAt   DateTime      @updatedAt @map(name: "updated_at")
+//   posts       Post[]
+//   predictions predictions[]
+//   accounts    Account[]
+//   sessions    Session[]
+
+//   @@map(name: "users")
+// }
+
+model User {
+  id            String    @id @default(cuid())
+  name          String?
+  email         String?   @unique
+  emailVerified DateTime?
+  image         String?
+  posts         Post[]
+  accounts      Account[]
+  sessions      Session[]
+  predictions   predictions[]
+}
+
+model Account {
+  id                 String  @id @default(cuid())
+  userId             String  @map("user_id")
+  type               String
+  provider           String
+  providerAccountId  String  @map("provider_account_id")
+  refresh_token      String?
+  access_token       String?
+  expires_at         Int?
+  token_type         String?
+  scope              String?
+  id_token           String?
+  session_state      String?
+  oauth_token_secret String?
+  oauth_token        String?
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([provider, providerAccountId])
+}
+
+model VerificationToken {
+  id         Int      @id @default(autoincrement())
+  identifier String
+  token      String   @unique
+  expires    DateTime
+
+  @@unique([identifier, token])
+}
+
+model platforms {
+  id           Int            @id @default(autoincrement())
+  platform     String
+  Marketplaces marketplaces[]
+  Collections  collections[]
+}
+
+model marketplaces {
+  id          Int           @id @default(autoincrement())
+  platform    platforms     @relation(fields: [platformId], references: [id])
+  platformId  Int           @map(name: "platform_id")
+  marketplace String
+  address     String?
+  url         String?
+  floorPrices floorPrices[]
+}
+
+model collections {
+  id          Int           @id @default(autoincrement())
+  createdAt   DateTime      @default(now()) @map(name: "created_at")
+  platform    platforms     @relation(fields: [platformId], references: [id])
+  platformId  Int           @map(name: "platform_id")
+  address     String?
+  name        String
+  imageUrl    String?       @map(name: "image_url")
+  slug        String?
+  supply      Int?
+  twitter     String?
+  discord     String?
+  website     String?
+  floorPrices floorPrices[]
+  Predictions predictions[]
+}
+
+model floorPrices {
+  date          DateTime
+  collection    collections  @relation(fields: [collectionId], references: [id])
+  collectionId  Int          @map(name: "collection_id")
+  marketplace   marketplaces @relation(fields: [marketplaceId], references: [id])
+  marketplaceId Int          @map(name: "marketplace_id")
+  price         Float
+  symbol        String
+
+  @@unique([date, collectionId, marketplaceId])
+}
+
+model predictions {
+  id           Int         @id @default(autoincrement())
+  date         DateTime    @default(now())
+  collection   collections @relation(fields: [collectionId], references: [id])
+  collectionId Int         @map(name: "collection_id")
+  user         User        @relation(fields: [userId], references: [id])
+  userId       String      @map(name: "user_id")
+  direction    String
+  duration     String
+  threshold    Float
+  startPrice   Float       @map(name: "start_price")
+  endPrice     Float       @map(name: "end_price")
+  status       String
+
+  @@unique([date, collectionId, userId])
+}

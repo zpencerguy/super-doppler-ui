@@ -3,7 +3,6 @@
 import { NextApiHandler } from 'next';
 import NextAuth from 'next-auth';
 import { PrismaAdapter } from '@next-auth/prisma-adapter';
-import GitHubProvider from 'next-auth/providers/github';
 import TwitterProvider from 'next-auth/providers/twitter'
 import prisma from '../../../lib/prisma';
 

@@ -28,13 +28,19 @@ const Draft: React.FC = () => {
       <div>
         <form onSubmit={submitData}>
           <h1>New Prediction</h1>
-          <input
+          {/* <input
             autoFocus
             onChange={(e) => setTitle(e.target.value)}
             placeholder="Collection"
             type="text"
             value={title}
-          />
+          /> */}
+          <select onChange={(e) => setTitle(e.target.value)}>
+            <option value="" disabled selected>Select Collection</option>
+            <option value="degods">DeGods</option>
+            <option value="okay_bears">Okay Bears</option>
+            <option value="yoots">Y00ts</option>
+          </select>
           <textarea
             cols={50}
             onChange={(e) => setContent(e.target.value)}

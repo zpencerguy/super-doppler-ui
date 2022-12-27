@@ -4,7 +4,7 @@ import React from 'react';
 import { GetServerSideProps } from 'next';
 import { useSession, getSession } from 'next-auth/react';
 import Layout from '../components/Layout';
-import Post, { PostProps } from '../components/Post';
+import Collection, { CollectionProps } from '../components/Collections';
 import prisma from '../lib/prisma';
 
 export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
@@ -14,33 +14,29 @@ export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
     return { props: { drafts: [] } };
   }
 
-  const drafts = await prisma.post.findMany({
-    where: {
-      author: { email: session.user.email },
-      // published: false,
-    },
-    include: {
-      author: {
-        select: { name: true },
-      },
+  const collections = await prisma.collections.findMany({
+    select: {
+      id: true,
+      name: true,
+      imageUrl: true
     },
   });
   return {
-    props: { drafts },
+    props: { collections },
   };
 };
 
 type Props = {
-  drafts: PostProps[];
+  collections: CollectionProps[];
 };
 
-const Drafts: React.FC<Props> = (props) => {
+const Collections: React.FC<Props> = (props) => {
   const { data: session } = useSession();
 
   if (!session) {
     return (
       <Layout>
-        <h1>My Predictions</h1>
+        <h1>Collections</h1>
         <div>You need to be authenticated to view this page.</div>
       </Layout>
     );
@@ -49,11 +45,11 @@ const Drafts: React.FC<Props> = (props) => {
   return (
     <Layout>
       <div className="page">
-        <h1>My Predictions</h1>
+        <h1>Collections</h1>
         <main>
-          {props.drafts.map((post) => (
-            <div key={post.id} className="post">
-              <Post post={post} />
+          {props.collections.map((collection) => (
+            <div key={collection.id} className="collection">
+              <Collection collection={collection} />
             </div>
           ))}
         </main>
@@ -76,4 +72,4 @@ const Drafts: React.FC<Props> = (props) => {
   );
 };
 
-export default Drafts;
+export default Collections;

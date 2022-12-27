@@ -15,7 +15,7 @@ const Header: React.FC = () => {
     <div className="left">
       <Link href="/">
         <a className="bold" data-active={isActive('/')}>
-          Predictions
+          All Predictions
         </a>
       </Link>
       <style jsx>{`
@@ -47,7 +47,7 @@ const Header: React.FC = () => {
       <div className="left">
         <Link href="/">
           <a className="bold" data-active={isActive('/')}>
-            Predictions
+            All Predictions
           </a>
         </Link>
         <style jsx>{`
@@ -119,11 +119,11 @@ const Header: React.FC = () => {
       <div className="left">
         <Link href="/">
           <a className="bold" data-active={isActive('/')}>
-            Predictions
+            All Predictions
           </a>
         </Link>
         <Link href="/drafts">
-          <a data-active={isActive('/drafts')}>My drafts</a>
+          <a data-active={isActive('/drafts')}>My Predictions</a>
         </Link>
         <style jsx>{`
           .bold {

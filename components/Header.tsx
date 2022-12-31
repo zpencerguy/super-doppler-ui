@@ -123,7 +123,7 @@ const Header: React.FC = () => {
           </a>
         </Link>
         <Link href="/drafts">
-          <a data-active={isActive('/drafts')}>My drafts</a>
+          <a data-active={isActive('/drafts')}>My Predictions</a>
         </Link>
         <style jsx>{`
 

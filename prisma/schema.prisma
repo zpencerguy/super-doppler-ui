@@ -131,7 +131,7 @@ model floorPrices {
 
 model predictions {
   id           Int         @id @default(autoincrement())
-  date         DateTime    @default(now())
+  created      DateTime    @default(now())
   collection   collections @relation(fields: [collectionId], references: [id])
   collectionId Int         @map(name: "collection_id")
   user         User        @relation(fields: [userId], references: [id])
@@ -143,5 +143,5 @@ model predictions {
   endPrice     Float       @map(name: "end_price")
   status       String
 
-  @@unique([date, collectionId, userId])
+  @@unique([created, collectionId, userId])
 }

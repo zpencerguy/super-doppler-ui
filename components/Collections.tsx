@@ -6,7 +6,8 @@ import Image from "next/image";
 export type CollectionProps = {
   id: string;
   name: string;
-  imageUrl: string
+  imageurl: string;
+  price: Number
 };
 
 const Collection: React.FC<{ collection: CollectionProps }> = ({ collection }) => {
@@ -14,9 +15,10 @@ const Collection: React.FC<{ collection: CollectionProps }> = ({ collection }) =
   return (
     <div>
       <h2>{collection.name}</h2>
+      <h4>{collection.price} SOL</h4>
       <img
         className="rounded-lg"
-        src={collection.imageUrl}
+        src={collection.imageurl}
         width="100px"
         height="100px"
         // placeholder="blur"

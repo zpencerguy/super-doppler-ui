@@ -5,6 +5,7 @@ import { GetServerSideProps } from 'next';
 import { useSession, getSession } from 'next-auth/react';
 import Layout from '../components/Layout';
 import Collection, { CollectionProps } from '../components/Collections';
+import MainFloorCard, { MainFloorProps } from '../components/FloorCard'
 import prisma from '../lib/prisma';
 
 export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
@@ -55,7 +56,7 @@ const Collections: React.FC<Props> = (props) => {
         <main>
           {props.collections.map((collection) => (
             <div key={collection.id} className="collection">
-              <Collection collection={collection} />
+              <MainFloorCard collection={collection} />
             </div>
           ))}
         </main>

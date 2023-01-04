@@ -31,7 +31,7 @@ export default async function handle(req, res) {
   } 
   else if (direction == 'down')
   {
-    end_price = price * (1 + threshold);
+    end_price = price * (1 - threshold);
   }
 
   console.log(end_price)
@@ -48,6 +48,9 @@ export default async function handle(req, res) {
         collection: { connect: {slug: collection_slug}},
         status: 'active'
     },
+    include: {
+      collection: true
+    }
   });
   res.json(result);
 }

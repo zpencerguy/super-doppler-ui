@@ -118,14 +118,19 @@ const Header: React.FC = () => {
   if (session) {
     left = (
       <div className="left">
+
         <Link href="/">
-          <a className="bold" data-active={isActive('/')}>
-            Predictions
-          </a>
+          <a className="bold" data-active={isActive('/')}>Collections</a>
         </Link>
-        <Link href="/drafts">
-          <a data-active={isActive('/drafts')}>My Predictions</a>
+
+        <Link href="/predictions">
+          <a data-active={isActive('/predictions')}>Predictions</a>
         </Link>
+
+        <Link href="/mypredictions">
+          <a data-active={isActive('/mypredictions')}>My Predictions</a>
+        </Link>
+
         <style jsx>{`
 
           a {

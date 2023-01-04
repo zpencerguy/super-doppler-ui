@@ -8,23 +8,6 @@ import Router from 'next/router';
 import prisma from '../lib/prisma';
 
 
-
-// export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
-//   const session = await getSession({ req });
-//   if (!session) {
-//     res.statusCode = 403;
-//     return { props: { drafts: [] } };
-//   }
-
-//   const collections = await prisma.$queryRaw`select c.id, c."name" , c.image_url as imageurl, fp.price
-//   from public."floorPrices" fp 
-//   inner join (select max("date") date, collection_id from public."floorPrices" group by collection_id) fp2 on fp."date" = fp2."date" and fp.collection_id = fp2.collection_id 
-//   inner join public.collections c 
-//       on fp.collection_id = c.id`
-// };
-
-
-
 const Draft: React.FC = () => {
   const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
@@ -49,7 +32,7 @@ const Draft: React.FC = () => {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(body),
       });
-      await Router.push('/drafts');
+      await Router.push('/mypredictions');
     } catch (error) {
       console.error(error);
     }
@@ -70,7 +53,7 @@ const Draft: React.FC = () => {
           <select onChange={(e) => setCollectionSlug(e.target.value)}>
             <option value="" disabled selected>Select Collection</option>
             <option value="degods">DeGods</option>
-            <option value="degenerate_trash_pandas">DeGods</option>
+            <option value="degenerate_trash_pandas">Degenerate Trash Pandas</option>
             <option value="okay_bears<">Okay Bears</option>
             <option value="y00ts">Y00ts</option>
             <option value="degenerate_ape_academy">Degenerate Ape Academy</option>
@@ -100,11 +83,13 @@ const Draft: React.FC = () => {
             <option value="" disabled selected>Select Duration</option>
             <option value="1">1 day</option>
             <option value="3">3 days</option>
+            <option value="7">7 days</option>
+            <option value="30">30 days</option>
           </select>
           <textarea
             cols={50}
             onChange={(e) => setContent(e.target.value)}
-            placeholder="Optional prediction notes"
+            placeholder="Prediction notes (optional)"
             rows={8}
             value={content}
           />

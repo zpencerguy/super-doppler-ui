@@ -1,12 +1,32 @@
-// pages/drafts.tsx
-
-import React from 'react';
-import { GetServerSideProps } from 'next';
+import React from "react"
+import { GetStaticProps, GetServerSideProps } from "next"
 import { useSession, getSession } from 'next-auth/react';
-import Layout from '../components/Layout';
+import Layout from "../components/Layout"
+import Post, { PostProps } from "../components/Post"
 import Prediction, { PredictionProps } from '../components/Predictions';
 import prisma from '../lib/prisma';
 
+
+// index.tsx
+// export const getStaticProps: GetStaticProps = async () => {
+//   const feed = await prisma.post.findMany({
+//     where: { published: true },
+//     include: {
+//       author: {
+//         select: { name: true },
+//       },
+//     },
+//   });
+//   return {
+//     props: { feed },
+//     revalidate: 10,
+//   };
+// };
+
+
+// type Props = {
+//   feed: PostProps[]
+// }
 
 export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
   const session = await getSession({ req });
@@ -15,16 +35,17 @@ export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
     return { props: { drafts: [] } };
   }
 
-  const predictions = await prisma.$queryRaw`select c.id, c."name" , c.image_url as imageurl, p.start_price, p.end_price
+  const predictions = await prisma.$queryRaw`select c.id, c."name" , c.image_url as imageurl, p.direction, p.start_price, p.end_price, p.date
   from public.collections c 
   inner join public.predictions p 
       on c.id = p.collection_id
   inner join public."User" u 
       on p.user_id = u.id
-  where u.email = ${session.user.email}`;
+  where p.status = 'active' 
+  order by p.date desc`;
 
   return {
-    props: { predictions },
+    props: { predictions: JSON.parse(JSON.stringify(predictions)) },
   };
 };
 
@@ -32,24 +53,13 @@ type Props = {
   predictions: PredictionProps[];
 };
 
-const Drafts: React.FC<Props> = (props) => {
-  const { data: session } = useSession();
-
-  if (!session) {
-    return (
-      <Layout>
-        <h1>My Predictions</h1>
-        <div>You need to be authenticated to view this page.</div>
-      </Layout>
-    );
-  }
-
+const Blog: React.FC<Props> = (props) => {
   return (
     <Layout>
       <div className="page">
-        <h1>My Predictions</h1>
+        <h1>Collection Predictions</h1>
         <main>
-          {props.predictions.map((prediction) => (
+        {props.predictions.map((prediction) => (
             <div key={prediction.id} className="post">
               <Prediction collection={prediction} />
             </div>
@@ -71,7 +81,7 @@ const Drafts: React.FC<Props> = (props) => {
         }
       `}</style>
     </Layout>
-  );
-};
+  )
+}
 
-export default Drafts;
+export default Blog

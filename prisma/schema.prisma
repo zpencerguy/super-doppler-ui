@@ -108,7 +108,7 @@ model collections {
   address     String?
   name        String
   imageUrl    String?       @map(name: "image_url")
-  slug        String?       @unique
+  slug        String       @unique
   supply      Int?
   twitter     String?
   discord     String?
@@ -125,6 +125,7 @@ model floorPrices {
   marketplaceId Int          @map(name: "marketplace_id")
   price         Float
   symbol        String
+
 
   @@unique([date, collectionId, marketplaceId])
 }

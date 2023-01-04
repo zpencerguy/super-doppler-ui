@@ -4,8 +4,9 @@ import React from 'react';
 import { GetServerSideProps } from 'next';
 import { useSession, getSession } from 'next-auth/react';
 import Layout from '../components/Layout';
-import Post, { PostProps } from '../components/Post';
+import Prediction, { PredictionProps } from '../components/Predictions';
 import prisma from '../lib/prisma';
+
 
 export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
   const session = await getSession({ req });
@@ -14,24 +15,21 @@ export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
     return { props: { drafts: [] } };
   }
 
-  const drafts = await prisma.post.findMany({
-    where: {
-      author: { email: session.user.email },
-      // published: false,
-    },
-    include: {
-      author: {
-        select: { name: true },
-      },
-    },
-  });
+  const predictions = await prisma.$queryRaw`select c.id, c."name" , c.image_url as imageurl, p.start_price, p.end_price
+  from public.collections c 
+  inner join public.predictions p 
+      on c.id = p.collection_id
+  inner join public."User" u 
+      on p.user_id = u.id
+  where u.email = ${session.user.email}`;
+
   return {
-    props: { drafts },
+    props: { predictions },
   };
 };
 
 type Props = {
-  drafts: PostProps[];
+  predictions: PredictionProps[];
 };
 
 const Drafts: React.FC<Props> = (props) => {
@@ -51,9 +49,9 @@ const Drafts: React.FC<Props> = (props) => {
       <div className="page">
         <h1>My Predictions</h1>
         <main>
-          {props.drafts.map((post) => (
-            <div key={post.id} className="post">
-              <Post post={post} />
+          {props.predictions.map((prediction) => (
+            <div key={prediction.id} className="post">
+              <Prediction collection={prediction} />
             </div>
           ))}
         </main>

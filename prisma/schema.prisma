@@ -108,7 +108,7 @@ model collections {
   address     String?
   name        String
   imageUrl    String?       @map(name: "image_url")
-  slug        String?
+  slug        String?       @unique
   supply      Int?
   twitter     String?
   discord     String?
@@ -131,7 +131,7 @@ model floorPrices {
 
 model predictions {
   id           Int         @id @default(autoincrement())
-  created      DateTime    @default(now())
+  date         DateTime    @default(now())
   collection   collections @relation(fields: [collectionId], references: [id])
   collectionId Int         @map(name: "collection_id")
   user         User        @relation(fields: [userId], references: [id])
@@ -143,5 +143,5 @@ model predictions {
   endPrice     Float       @map(name: "end_price")
   status       String
 
-  @@unique([created, collectionId, userId])
+  @@unique([date, collectionId, userId])
 }

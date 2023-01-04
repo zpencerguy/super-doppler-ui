@@ -39,6 +39,7 @@ const Header: React.FC = () => {
       `}</style>
     </div>
   );
+  
 
   let right = null;
 

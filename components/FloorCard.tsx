@@ -55,7 +55,7 @@ const MainFloorCard: React.FC<{ collection: MainFloorProps }> = ({ collection })
                 <Typography variant="h5" color="inherit" paragraph>
                     Floor price - {collection.price} SOL
                 </Typography>
-                <Link variant="subtitle1" href="#">
+                <Link variant="subtitle1" href="create">
                     Make prediction...
                 </Link>
                 </Box>

@@ -13,7 +13,7 @@ export default async function handle(req, res) {
   const prices = await prisma.$queryRaw`
   select price 
   from public."floorPrices" fp 
-  inner join public.collections c on fp.collection_id = c.id 
+  inner join public.collection c on fp.collection_id = c.id 
   where slug = ${collection_slug} 
   order by date 
   desc limit 1`
@@ -45,7 +45,7 @@ export default async function handle(req, res) {
         startPrice: price,
         endPrice: end_price,
         user: { connect: { email: session?.user?.email } },
-        collection: { connect: {slug: collection_slug}},
+        collection: { connect: { slug: collection_slug }},
         status: 'active'
     },
     include: {
@@ -53,17 +53,4 @@ export default async function handle(req, res) {
     }
   });
   res.json(result);
-}
-
-// id           Int         @id @default(autoincrement())
-// date         DateTime    @default(now())
-// collection   collections @relation(fields: [collectionId], references: [id])
-// collectionId Int         @map(name: "collection_id")
-// user         User        @relation(fields: [userId], references: [id])
-// userId       String      @map(name: "user_id")
-// direction    String
-// duration     String
-// threshold    Float
-// startPrice   Float       @map(name: "start_price")
-// endPrice     Float       @map(name: "end_price")
-// status       String
+};

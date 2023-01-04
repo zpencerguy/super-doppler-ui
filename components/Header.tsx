@@ -120,6 +120,11 @@ const Header: React.FC = () => {
       <div className="left">
         <Link href="/">
           <a className="bold" data-active={isActive('/')}>
+            Collections
+          </a>
+        </Link>
+        <Link href="predictions">
+          <a className="bold" data-active={isActive('/predictions')}>
             Predictions
           </a>
         </Link>

@@ -87,7 +87,7 @@ model platforms {
   id           Int            @id @default(autoincrement())
   platform     String
   Marketplaces marketplaces[]
-  Collections  collections[]
+  Collections  collection[]
 }
 
 model marketplaces {
@@ -100,7 +100,7 @@ model marketplaces {
   floorPrices floorPrices[]
 }
 
-model collections {
+model collection {
   id          Int           @id @default(autoincrement())
   createdAt   DateTime      @default(now()) @map(name: "created_at")
   platform    platforms     @relation(fields: [platformId], references: [id])
@@ -108,7 +108,7 @@ model collections {
   address     String?
   name        String
   imageUrl    String?       @map(name: "image_url")
-  slug        String       @unique
+  slug        String        @unique
   supply      Int?
   twitter     String?
   discord     String?
@@ -119,7 +119,7 @@ model collections {
 
 model floorPrices {
   date          DateTime
-  collection    collections  @relation(fields: [collectionId], references: [id])
+  collection    collection  @relation(fields: [collectionId], references: [id])
   collectionId  Int          @map(name: "collection_id")
   marketplace   marketplaces @relation(fields: [marketplaceId], references: [id])
   marketplaceId Int          @map(name: "marketplace_id")
@@ -133,7 +133,7 @@ model floorPrices {
 model predictions {
   id           Int         @id @default(autoincrement())
   date         DateTime    @default(now())
-  collection   collections @relation(fields: [collectionId], references: [id])
+  collection   collection @relation(fields: [collectionId], references: [id])
   collectionId Int         @map(name: "collection_id")
   user         User        @relation(fields: [userId], references: [id])
   userId       String      @map(name: "user_id")

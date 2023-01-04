@@ -1,6 +1,7 @@
 // pages/api/post/index.ts
 
 import { getSession } from 'next-auth/react';
+import { stringify } from 'querystring';
 import prisma from '../../../lib/prisma';
 
 
@@ -45,7 +46,7 @@ export default async function handle(req, res) {
         startPrice: price,
         endPrice: end_price,
         user: { connect: { email: session?.user?.email } },
-        collection: { connect: { slug: collection_slug }},
+        collection: { connect: { slug: stringify(collection_slug) }},
         status: 'active'
     },
     include: {

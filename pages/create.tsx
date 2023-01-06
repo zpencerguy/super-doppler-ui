@@ -1,23 +1,38 @@
 // pages/create.tsx
 
 import React, { useState } from 'react';
+import { GetServerSideProps } from 'next';
+import { useSession, getSession } from 'next-auth/react';
 import Layout from '../components/Layout';
 import Router from 'next/router';
+import prisma from '../lib/prisma';
+
 
 const Draft: React.FC = () => {
   const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
+  const [collection_slug, setCollectionSlug] = useState('');
+  const [start_price, setStartPrice] = useState(9.29);
+  const [end_price, setEndPrice] = useState(10);
+  const [threshold, setThreshold] = useState(0.1)
+  const [direction, setDirection] = useState('');
+  const [duration, setDuration] = useState('');
+
 
   const submitData = async (e: React.SyntheticEvent) => {
     e.preventDefault();
     try {
-      const body = { title, content };
-      await fetch('/api/post', {
+      // const floor = await prisma.$queryRaw`select price from floorPrices fp inner join collections c on fp.collection_id = c.collection_id where c.slug = ${collection_slug} order by date desc limit 1`
+      // console.log(floor)
+
+      const body = { collection_slug, direction, duration, threshold};
+      // console.log(JSON.stringify(body))
+      await fetch('/api/predict', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(body),
       });
-      await Router.push('/drafts');
+      await Router.push('/mypredictions');
     } catch (error) {
       console.error(error);
     }
@@ -35,38 +50,50 @@ const Draft: React.FC = () => {
             type="text"
             value={title}
           /> */}
-          <select onChange={(e) => setTitle(e.target.value)}>
+          <select onChange={(e) => setCollectionSlug(e.target.value)}>
             <option value="" disabled selected>Select Collection</option>
-            <option value="DeGods">DeGods</option>
-            <option value="Okay Bears<">Okay Bears</option>
-            <option value="Y00ts">Y00ts</option>
-            <option value="Degenerate Ape Academy">Degenerate Ape Academy</option>
-            <option value="Solana Monkey Business">Solana Monkey Business</option>
-            <option value="Y00ts mint t00bs">Y00ts mint t00bs</option>
-            <option value="ABC">ABC</option>
-            <option value="Claynosaurz">Claynosaurz</option>
-            <option value="Trippin Ape Tribe">Trippin Ape Tribe</option>
-            <option value="Cets On Creck">Cets On Creck</option>
-            <option value="Smyths">Smyths</option>
-            <option value="GGSG Galactic Geckos">GGSG Galactic Geckos</option>
-            <option value="Shadowy Super Coder DAO">Shadowy Super Coder DAO</option>
-            <option value="Primates">Primates</option>
-            <option value="Famous Fox Federation">Famous Fox Federation</option>
-            <option value="Aurory">Aurory</option>
-            <option value="LILY">LILY</option>
-            <option value="Portals">Portals</option>
-            <option value="Communi3 Mad Scientists">Communi3 Mad Scientists</option>
-            <option value="Beep Boop Battery">Beep Boop Battery</option>
-            <option value="The Catalina Whale Mixer">The Catalina Whale Mixer</option>
+            <option value="degods">DeGods</option>
+            <option value="degenerate_trash_pandas">Degenerate Trash Pandas</option>
+            <option value="okay_bears<">Okay Bears</option>
+            <option value="y00ts">Y00ts</option>
+            <option value="degenerate_ape_academy">Degenerate Ape Academy</option>
+            <option value="solana_monkey_business">Solana Monkey Business</option>
+            <option value="t00bs">Y00ts mint t00bs</option>
+            <option value="abc_abracadabra">ABC</option>
+            <option value="claynosaurz">Claynosaurz</option>
+            <option value="trippin_ape_tribe">Trippin Ape Tribe</option>
+            <option value="cets_on_creck">Cets On Creck</option>
+            <option value="blocksmith_labs">Smyths</option>
+            <option value="galactic_geckos">GGSG Galactic Geckos</option>
+            <option value="shadowy_super_coder_dao">Shadowy Super Coder DAO</option>
+            <option value="primates">Primates</option>
+            <option value="famous_fox_federation">Famous Fox Federation</option>
+            <option value="aurory">Aurory</option>
+            <option value="lily">LILY</option>
+            <option value="portals">Portals</option>
+            <option value="communi3">Communi3 Mad Scientists</option>
+            <option value="the_catalina_whale_mixer">The Catalina Whale Mixer</option>
+          </select>
+          <select onChange={(e) => setDirection(e.target.value)}>
+            <option value="" disabled selected>Select Direction</option>
+            <option value="up">Up</option>
+            <option value="down">Down</option>
+          </select>
+          <select onChange={(e) => setDuration(e.target.value)}>
+            <option value="" disabled selected>Select Duration</option>
+            <option value="1">1 day</option>
+            <option value="3">3 days</option>
+            <option value="7">7 days</option>
+            <option value="30">30 days</option>
           </select>
           <textarea
             cols={50}
             onChange={(e) => setContent(e.target.value)}
-            placeholder="Make a prediction, enter direction (up, down) and time interval (1 day, 7 days, 30 days"
+            placeholder="Prediction notes (optional)"
             rows={8}
             value={content}
           />
-          <input disabled={!content || !title} type="submit" value="Create" />
+          <input  type="submit" value="Create" />
           <a className="back" href="#" onClick={() => Router.push('/')}>
             or Cancel
           </a>

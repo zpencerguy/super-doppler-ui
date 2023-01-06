@@ -51,6 +51,7 @@ model User {
   accounts      Account[]
   sessions      Session[]
   predictions   predictions[]
+  predict       predict[]
 }
 
 model Account {
@@ -117,13 +118,29 @@ model collection {
   Predictions predictions[]
 }
 
-// model projects {
-//   id            String        @id @default(cuid())
-//   name          String?
-//   slug          String?       @unique
-//   image         String?
-//   predictions   predictions[]
-// }
+model predict {
+  id           Int        @id @default(autoincrement())
+  date         DateTime   @default(now())
+  project      project    @relation(fields: [slug], references: [slug])
+  slug         String
+  user         User       @relation(fields: [userId], references: [id])
+  userId       String     @map(name: "user_id")
+  direction    String
+  duration     String
+  threshold    Float
+  startPrice   Float      @map(name: "start_price")
+  endPrice     Float      @map(name: "end_price")
+  status       String
+
+}
+
+model project {
+  id            Int          @id @default(autoincrement())
+  name          String?
+  slug          String       @unique
+  image         String?
+  predict       predict[]
+}
 
 model floorPrices {
   date          DateTime

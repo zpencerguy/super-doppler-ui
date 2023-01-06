@@ -38,7 +38,7 @@ export default async function handle(req, res) {
   console.log(end_price)
 
   const session = await getSession({ req });
-  const result = await prisma.predictions.create({
+  const result = await prisma.predict.create({
     data: {
         direction: direction,
         duration: duration,
@@ -47,7 +47,7 @@ export default async function handle(req, res) {
         endPrice: end_price,
         user: { connect: { email: session?.user?.email } },
         // collection: { connect: { slug: collection_slug } },
-        collection: {
+        project: {
           connect: { slug: collection_slug}
         },
         status: 'active'

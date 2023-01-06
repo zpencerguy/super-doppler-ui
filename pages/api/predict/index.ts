@@ -46,7 +46,10 @@ export default async function handle(req, res) {
         startPrice: price,
         endPrice: end_price,
         user: { connect: { email: session?.user?.email } },
-        collection: { connect: { slug: collection_slug } },
+        // collection: { connect: { slug: collection_slug } },
+        collection: {
+          connect: { slug: collection_slug}
+        },
         status: 'active'
     },
   });

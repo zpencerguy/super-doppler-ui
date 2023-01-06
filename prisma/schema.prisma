@@ -151,5 +151,5 @@ model predictions {
   endPrice     Float      @map(name: "end_price")
   status       String
 
-  // @@unique([date, collectionId, userId])
+  @@unique([date, collectionId, userId])
 }

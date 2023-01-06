@@ -21,13 +21,6 @@ export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
   inner join public.collection c 
       on fp.collection_id = c.id`
 
-  const collections_ = await prisma.collection.findMany({
-    select: {
-      id: true,
-      name: true,
-      imageUrl: true
-    },
-  });
   return {
     props: { collections },
   };

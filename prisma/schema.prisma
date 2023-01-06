@@ -117,6 +117,14 @@ model collection {
   Predictions predictions[]
 }
 
+// model projects {
+//   id            String        @id @default(cuid())
+//   name          String?
+//   slug          String?       @unique
+//   image         String?
+//   predictions   predictions[]
+// }
+
 model floorPrices {
   date          DateTime
   collection    collection   @relation(fields: [collectionId], references: [id])
@@ -143,5 +151,5 @@ model predictions {
   endPrice     Float      @map(name: "end_price")
   status       String
 
-  @@unique([date, collectionId, userId])
+  // @@unique([date, collectionId, userId])
 }

@@ -40,20 +40,20 @@ export default async function handle(req, res) {
 
   const session = await getSession({ req });
   
-  const result = await prisma.predict.create({
-    data: {
-        direction: direction,
-        duration: duration,
-        threshold: threshold,
-        startPrice: price,
-        endPrice: end_price,
-        user: { connect: { email: session?.user?.email } },
-        // collection: { connect: { slug: collection_slug } },
-        project: {
-          connect: { slug: collection_slug}
-        },
-        status: 'active'
-    },
-  });
-  res.json(result);
+  // const result = await prisma.predict.create({
+  //   data: {
+  //       direction: direction,
+  //       duration: duration,
+  //       threshold: threshold,
+  //       startPrice: price,
+  //       endPrice: end_price,
+  //       user: { connect: { email: session?.user?.email } },
+  //       // collection: { connect: { slug: collection_slug } },
+  //       project: {
+  //         connect: { slug: collection_slug}
+  //       },
+  //       status: 'active'
+  //   },
+  // });
+  // res.json(result);
 };

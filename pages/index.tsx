@@ -36,8 +36,13 @@ const Collections: React.FC<Props> = (props) => {
   if (!session) {
     return (
       <Layout>
-        <h1>Collections</h1>
-        <div>You need to be authenticated to view this page.</div>
+        <h1>Super Forecaster</h1>
+        <p>
+          The climate of the NFT market is always changing, with the prices of different NFTs fluctuating on a daily basis. In this market, there is a group of super forecasters known as the Cloudz who try to predict the climate of the market and the real-world price movements of NFTs. These Cloudz use Super Doppler to analyze data and report their insights.
+        </p>
+        <p>
+          Login with Twitter, and check out the collections currently supported. Make a prediction and see if you can become a Super Forecaster!
+        </p>
       </Layout>
     );
   }
@@ -49,9 +54,7 @@ const Collections: React.FC<Props> = (props) => {
         <p>
           The climate of the NFT market is always changing, with the prices of different NFTs fluctuating on a daily basis. In this market, there is a group of super forecasters known as the Cloudz who try to predict the climate of the market and the real-world price movements of NFTs. These Cloudz use Super Doppler to analyze data and report their insights.
         </p>
-        <p>
-          Login with Twitter, and check out the collections currently supported below. Make a prediction and see if you can become a Super Forecaster!
-        </p>
+        
         <h1>Collections</h1>
         <main>
           {props.collections.map((collection) => (

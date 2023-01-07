@@ -14,7 +14,7 @@ export default async function handle(req, res) {
   const prices = await prisma.$queryRaw`
   select price 
   from public."floorPrices" fp 
-  inner join public.collection c on fp.collection_id = c.id 
+  inner join public.project c on fp.collection_id = c.id 
   where slug = ${collection_slug} 
   order by date 
   desc limit 1`

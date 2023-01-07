@@ -34,7 +34,7 @@ model User {
   posts         Post[]
   sessions      Session[]
   predict       predict[]
-  predictions   predictions[]
+  // predictions   predictions[]
 }
 
 model Account {
@@ -69,7 +69,7 @@ model VerificationToken {
 model platforms {
   id           Int            @id @default(autoincrement())
   platform     String
-  Collections  collection[]
+  // Collections  collection[]
   Marketplaces marketplaces[]
 }
 
@@ -83,22 +83,22 @@ model marketplaces {
   platform    platforms     @relation(fields: [platformId], references: [id])
 }
 
-model collection {
-  id          Int           @id @default(autoincrement())
-  createdAt   DateTime      @default(now()) @map("created_at")
-  platformId  Int           @map("platform_id")
-  address     String?
-  name        String
-  imageUrl    String?       @map("image_url")
-  slug        String        @unique
-  supply      Int?
-  twitter     String?
-  discord     String?
-  website     String?
-  platform    platforms     @relation(fields: [platformId], references: [id])
-  floorPrices floorPrices[]
-  Predictions predictions[]
-}
+// model collection {
+//   id          Int           @id @default(autoincrement())
+//   createdAt   DateTime      @default(now()) @map("created_at")
+//   platformId  Int           @map("platform_id")
+//   address     String?
+//   name        String
+//   imageUrl    String?       @map("image_url")
+//   slug        String        @unique
+//   supply      Int?
+//   twitter     String?
+//   discord     String?
+//   website     String?
+//   platform    platforms     @relation(fields: [platformId], references: [id])
+//   floorPrices floorPrices[]
+//   Predictions predictions[]
+// }
 
 model predict {
   id         Int      @id @default(autoincrement())
@@ -121,6 +121,7 @@ model project {
   slug    String    @unique
   image   String?
   predict predict[]
+  floor   floorPrices[]
 }
 
 model floorPrices {
@@ -129,25 +130,25 @@ model floorPrices {
   marketplaceId Int          @map("marketplace_id")
   price         Float
   symbol        String
-  collection    collection   @relation(fields: [collectionId], references: [id])
+  collection    project   @relation(fields: [collectionId], references: [id])
   marketplace   marketplaces @relation(fields: [marketplaceId], references: [id])
 
   @@unique([date, collectionId, marketplaceId])
 }
 
-model predictions {
-  id           Int        @id @default(autoincrement())
-  date         DateTime   @default(now())
-  collectionId Int        @map("collection_id")
-  userId       String     @map("user_id")
-  direction    String
-  duration     String
-  threshold    Float
-  startPrice   Float      @map("start_price")
-  endPrice     Float      @map("end_price")
-  status       String
-  collection   collection @relation(fields: [collectionId], references: [id])
-  user         User       @relation(fields: [userId], references: [id])
+// model predictions {
+//   id           Int        @id @default(autoincrement())
+//   date         DateTime   @default(now())
+//   collectionId Int        @map("collection_id")
+//   userId       String     @map("user_id")
+//   direction    String
+//   duration     String
+//   threshold    Float
+//   startPrice   Float      @map("start_price")
+//   endPrice     Float      @map("end_price")
+//   status       String
+//   collection   collection @relation(fields: [collectionId], references: [id])
+//   user         User       @relation(fields: [userId], references: [id])
 
-  @@unique([date, collectionId, userId])
-}
+//   @@unique([date, collectionId, userId])
+// }

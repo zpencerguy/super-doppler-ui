@@ -15,10 +15,10 @@ export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
     return { props: { drafts: [] } };
   }
 
-  const collections = await prisma.$queryRaw`select c.id, c."name" , c.image_url as imageurl, fp.price
+  const collections = await prisma.$queryRaw`select c.id, c."name" , c.image as imageurl, fp.price
   from public."floorPrices" fp 
   inner join (select max("date") date, collection_id from public."floorPrices" group by collection_id) fp2 on fp."date" = fp2."date" and fp.collection_id = fp2.collection_id 
-  inner join public.collection c 
+  inner join public.project c 
       on fp.collection_id = c.id`
 
   return {

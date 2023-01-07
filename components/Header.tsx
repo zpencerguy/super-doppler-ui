@@ -13,9 +13,9 @@ const Header: React.FC = () => {
 
   let left = (
     <div className="left">
-      <Link href="/">
+      <Link href="">
         <a className="bold" data-active={isActive('/')}>
-          Predictions
+          SF
         </a>
       </Link>
       <style jsx>{`
@@ -46,9 +46,9 @@ const Header: React.FC = () => {
   if (status === 'loading') {
     left = (
       <div className="left">
-        <Link href="/">
+        <Link href="">
           <a className="bold" data-active={isActive('/')}>
-            Predictions
+            SF
           </a>
         </Link>
         <style jsx>{`

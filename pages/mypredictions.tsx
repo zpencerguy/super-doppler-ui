@@ -15,10 +15,10 @@ export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
     return { props: { drafts: [] } };
   }
 
-  const predictions = await prisma.$queryRaw`select c.id, c."name" , c.image_url as imageurl, p.direction, p.start_price, p.end_price, p.date
-  from public.collection c 
-  inner join public.predictions p 
-      on c.id = p.collection_id
+  const predictions = await prisma.$queryRaw`select a.id, a."name" , a.image as imageurl, p.direction, p.start_price, p.end_price, p.date
+  from public.project a 
+  inner join public.predict p 
+      on a.slug = p.slug
   inner join public."User" u 
       on p.user_id = u.id
   where u.email = ${session.user.email} order by p.date desc`;

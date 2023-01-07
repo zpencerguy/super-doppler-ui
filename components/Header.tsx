@@ -157,7 +157,7 @@ const Header: React.FC = () => {
     right = (
       <div className="right">
         <p>
-          {session.user.name} ({session.user.email})
+          {session.user.name}
         </p>
         <Link href="/create">
           <button>
@@ -176,7 +176,8 @@ const Header: React.FC = () => {
 
           p {
             display: inline-block;
-            font-size: 13px;
+            font-weight: bold;
+            font-size: 16px;
             padding-right: 1rem;
           }
 

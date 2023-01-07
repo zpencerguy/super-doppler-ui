@@ -52,11 +52,22 @@ const Draft: React.FC = () => {
           /> */}
           <select onChange={(e) => setCollectionSlug(e.target.value)}>
             <option value="" disabled selected>Select Collection</option>
+            <option value="aurory">Aurory</option>
             <option value="degenerate_trash_pandas">Degenerate Trash Pandas</option>
+            <option value="degenerate_ape_academy">Degenerate Ape Academy</option>
+            <option value="solgods">Gods</option>
             <option value="taiyopilots">Taiyo Pilots</option>
             <option value="danger_valley_ducks">Danger Valley Ducks</option>
             <option value="famous_fox_federation">Famous Fox Federation</option>
             <option value="bad_creature_society">Bad Creature Society</option>
+            <option value="claynosaurz">Claynosaurz</option>
+            <option value="lily">LILY</option>
+            <option value="elixir_ovols">Elixir: Ovols</option>
+            <option value="cets_on_creck">CECKS ON CRECK</option>
+            <option value="dandies">Dandies</option>
+            <option value="abc_abracadabra">ABC</option>
+            <option value="immortals_nft">Immortals</option>
+            <option value="duelbots">DUELBOTS</option>
           </select>
           <select onChange={(e) => setDirection(e.target.value)}>
             <option value="" disabled selected>Select Direction</option>

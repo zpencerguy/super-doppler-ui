@@ -19,7 +19,7 @@ export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
   from public."floorPrices" fp 
   inner join (select max("date") date, collection_id from public."floorPrices" group by collection_id) fp2 on fp."date" = fp2."date" and fp.collection_id = fp2.collection_id 
   inner join public.project c 
-      on fp.collection_id = c.id`
+      on fp.collection_id = c.id order by c.id desc`
 
   return {
     props: { collections },
@@ -38,10 +38,13 @@ const Collections: React.FC<Props> = (props) => {
       <Layout>
         <h1>Super Forecaster</h1>
         <p>
-          The climate of the NFT market is always changing, with the prices of different NFTs fluctuating on a daily basis. In this market, there is a group of super forecasters known as the Cloudz who try to predict the climate of the market and the real-world price movements of NFTs. These Cloudz use Super Doppler to analyze data and report their insights.
+          The climate of the NFT market is always changing, with floor prices fluctuating on a daily basis. Can you guess where the floor will be tomorrow? or 7 days from now? 
         </p>
         <p>
           Login with Twitter, and check out the collections currently supported. Make a prediction and see if you can become a Super Forecaster!
+        </p>
+        <p>
+          Your prediction will be tweeted out by <a href="https://twitter.com/Super4caster">@Super4caster</a> as well as the outcome!
         </p>
       </Layout>
     );
@@ -51,8 +54,8 @@ const Collections: React.FC<Props> = (props) => {
     <Layout>
       <div className="page">
       <h1>Super Forecaster</h1>
-        <p>
-          The climate of the NFT market is always changing, with the prices of different NFTs fluctuating on a daily basis. In this market, there is a group of super forecasters known as the Cloudz who try to predict the climate of the market and the real-world price movements of NFTs. These Cloudz use Super Doppler to analyze data and report their insights.
+      <p>
+          Make a predictions and <a href="https://twitter.com/Super4caster">@Super4caster</a> will remember and tweet the outcome!
         </p>
         
         <h1>Collections</h1>

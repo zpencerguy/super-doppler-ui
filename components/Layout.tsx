@@ -1,5 +1,7 @@
 import React, { ReactNode } from "react";
 import Header from "./Header";
+import Image from 'next/image';
+import bg from '/img/sf_montage_bg.png';
 
 type Props = {
   children: ReactNode;
@@ -12,6 +14,8 @@ const Layout: React.FC<Props> = (props) => (
     <style jsx global>{`
       html {
         box-sizing: border-box;
+        background-image: url(${bg.src});
+        background-color: transparent;
       }
 
       *,
@@ -27,7 +31,8 @@ const Layout: React.FC<Props> = (props) => (
         font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
           Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji",
           "Segoe UI Symbol";
-        background: rgba(0, 0, 0, 0.05);
+        background: transparent;
+        background-color: transparent;
       }
 
       input,
@@ -42,6 +47,8 @@ const Layout: React.FC<Props> = (props) => (
     <style jsx>{`
       .layout {
         padding: 0 2rem;
+        background: transparent;
+        background-color: transparent;
       }
     `}</style>
   </div>

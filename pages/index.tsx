@@ -7,6 +7,9 @@ import Layout from '../components/Layout';
 import Collection, { CollectionProps } from '../components/Collections';
 import MainFloorCard, { MainFloorProps } from '../components/FloorCard'
 import prisma from '../lib/prisma';
+import Paper from '@mui/material/Paper';
+import Image from 'next/image';
+import logo from '/img/sf_logo.png';
 
 export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
   const session = await getSession({ req });
@@ -14,6 +17,7 @@ export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
     res.statusCode = 403;
     return { props: { drafts: [] } };
   }
+
 
   const collections = await prisma.$queryRaw`select c.id, c."name" , c.image as imageurl, fp.price
   from public."floorPrices" fp 
@@ -36,16 +40,20 @@ const Collections: React.FC<Props> = (props) => {
   if (!session) {
     return (
       <Layout>
-        <h1>Super Forecaster</h1>
-        <p>
-          The climate of the NFT market is always changing, with floor prices fluctuating on a daily basis. Can you guess where the floor will be tomorrow? or 7 days from now? 
-        </p>
-        <p>
-          Login with Twitter, and check out the collections currently supported. Make a prediction and see if you can become a Super Forecaster!
-        </p>
-        <p>
-          Your prediction will be tweeted out by <a href="https://twitter.com/Super4caster">@Super4caster</a> as well as the outcome!
-        </p>
+          <div className="page">
+            <h1>Super Forecaster</h1>
+            <p>
+              The climate of the NFT market is always changing, with floor prices fluctuating on a daily basis. Can you guess where the floor will be tomorrow? or 7 days from now? 
+            </p>
+            <p>
+              Login with Twitter, and check out the collections currently supported. Make a prediction and see if you can become a Super Forecaster!
+            </p>
+            <p>
+              Your prediction will be tweeted out by <a href="https://twitter.com/Super4caster">@Super4caster</a> as well as the outcome!
+            </p>
+            
+          </div>
+          
       </Layout>
     );
   }
@@ -68,6 +76,7 @@ const Collections: React.FC<Props> = (props) => {
         </main>
       </div>
       <style jsx>{`
+        
         .post {
           background: var(--geist-background);
           transition: box-shadow 0.1s ease-in;

@@ -7,9 +7,6 @@ import Layout from '../components/Layout';
 import Collection, { CollectionProps } from '../components/Collections';
 import MainFloorCard, { MainFloorProps } from '../components/FloorCard'
 import prisma from '../lib/prisma';
-import Paper from '@mui/material/Paper';
-import Image from 'next/image';
-import logo from '/img/sf_logo.png';
 
 export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
   const session = await getSession({ req });
@@ -61,8 +58,8 @@ const Collections: React.FC<Props> = (props) => {
   return (
     <Layout>
       <div className="page">
-      <h1>Super Forecaster</h1>
-      <p>
+        <h1>Super Forecaster</h1>
+        <p>
           Make a predictions and <a href="https://twitter.com/Super4caster">@Super4caster</a> will remember and tweet the outcome!
         </p>
         

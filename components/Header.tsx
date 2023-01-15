@@ -5,6 +5,7 @@ import { useRouter } from 'next/router';
 import { signOut, useSession } from 'next-auth/react';
 import Image from 'next/image';
 import logo from '/img/sf_logo.png';
+import ConnectToPhantom from "../components/ConnectToPhantom";
 
 const Header: React.FC = () => {
   const router = useRouter();
@@ -105,6 +106,7 @@ const Header: React.FC = () => {
         <Link href="/api/auth/signin">
           <a data-active={isActive('/signup')}>Log in</a>
         </Link>
+        <ConnectToPhantom />
         <style jsx>{`
           a {
             text-decoration: none;
@@ -190,6 +192,7 @@ const Header: React.FC = () => {
         <button onClick={() => signOut()}>
           <a>Log out</a>
         </button>
+        <ConnectToPhantom />
         <style jsx>{`
           a {
             text-decoration: none;

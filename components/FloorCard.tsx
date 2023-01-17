@@ -9,7 +9,8 @@ export type MainFloorProps = {
     id: string;
     name: string;
     imageurl: string;
-    price: Number
+    price: Number;
+    predictions: Number;
   };
 
 
@@ -41,25 +42,31 @@ const MainFloorCard: React.FC<{ collection: MainFloorProps }> = ({ collection })
             }}
             />
             <Grid container>
-            <Grid item md={6}>
-                <Box
-                sx={{
-                    position: 'relative',
-                    p: { xs: 3, md: 6 },
-                    pr: { md: 0 },
-                }}
-                >
-                <Typography component="h1" variant="h3" color="inherit" gutterBottom>
-                    {collection.name}
-                </Typography>
-                <Typography variant="h5" color="inherit" paragraph>
-                    Floor price - {collection.price} SOL
-                </Typography>
-                <Link variant="subtitle1" href="/create">
-                    Make prediction...
-                </Link>
-                </Box>
-            </Grid>
+                <Grid item md={6}>
+                    <Box
+                    sx={{
+                        position: 'relative',
+                        p: { xs: 3, md: 6 },
+                        // pr: { md: 0 },
+                    }}
+                    >
+                    <Typography component="h1" variant="h3" color="inherit" gutterBottom>
+                        {collection.name}
+                    </Typography>
+                    <Typography variant="h5" color="inherit" paragraph>
+                        Floor price - {collection.price.toFixed(2)} SOL
+                    </Typography>
+                    <Typography variant="h5" color="inherit" paragraph>
+                        Number of predictions - {collection.predictions}
+                    </Typography>
+                    <Link variant="subtitle1" href="/create">
+                        Make prediction...
+                    </Link>
+                    </Box>
+                </Grid>
+                {/* <Grid item xs>
+                    {collection.name} ?
+                </Grid> */}
             </Grid>
         </Paper>
         );

@@ -3,6 +3,9 @@ import React from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { signOut, useSession } from 'next-auth/react';
+import Image from 'next/image';
+import logo from '/img/sf_logo.png';
+import ConnectToPhantom from "../components/ConnectToPhantom";
 
 const Header: React.FC = () => {
   const router = useRouter();
@@ -14,8 +17,17 @@ const Header: React.FC = () => {
   let left = (
     <div className="left">
       <Link href="">
-        <a className="bold" data-active={isActive('/')}>
+        {/* <a className="bold" data-active={isActive('/')}>
           SF
+        </a> */}
+        <a className="bold" data-active={isActive('/')}>
+          <Image className="logo"
+              src={logo}
+              alt="Super Forecaster Logo"
+              width={50}
+              height={50}
+              text-align="center"
+            />
         </a>
       </Link>
       <style jsx>{`
@@ -25,12 +37,12 @@ const Header: React.FC = () => {
 
         a {
           text-decoration: none;
-          color: var(--geist-foreground);
+          color: black;
           display: inline-block;
         }
 
         .left a[data-active='true'] {
-          color: gray;
+          color: black;
         }
 
         a + a {
@@ -47,9 +59,13 @@ const Header: React.FC = () => {
     left = (
       <div className="left">
         <Link href="">
-          <a className="bold" data-active={isActive('/')}>
-            SF
-          </a>
+          <Image className="logo"
+              src={logo}
+              alt="Super Forecaster Logo"
+              width={50}
+              height={50}
+              text-align="center"
+            />
         </Link>
         <style jsx>{`
           .bold {
@@ -90,6 +106,7 @@ const Header: React.FC = () => {
         <Link href="/api/auth/signin">
           <a data-active={isActive('/signup')}>Log in</a>
         </Link>
+        <ConnectToPhantom />
         <style jsx>{`
           a {
             text-decoration: none;
@@ -118,7 +135,15 @@ const Header: React.FC = () => {
   if (session) {
     left = (
       <div className="left">
-
+        <Link href="">
+          <Image className="logo"
+              src={logo}
+              alt="Super Forecaster Logo"
+              width={50}
+              height={50}
+              text-align="center"
+          />
+        </Link>
         <Link href="/">
           <a className="bold" data-active={isActive('/')}>Collections</a>
         </Link>
@@ -145,7 +170,7 @@ const Header: React.FC = () => {
           }
 
           .left a[data-active='false'] {
-            color: gray;
+            color: black;
           }
 
           a + a {
@@ -167,11 +192,13 @@ const Header: React.FC = () => {
         <button onClick={() => signOut()}>
           <a>Log out</a>
         </button>
+        <ConnectToPhantom />
         <style jsx>{`
           a {
             text-decoration: none;
             color: var(--geist-foreground);
             display: inline-block;
+            color: black;
           }
 
           p {
@@ -179,6 +206,7 @@ const Header: React.FC = () => {
             font-weight: bold;
             font-size: 16px;
             padding-right: 1rem;
+            color: black;
           }
 
           a + a {
@@ -189,8 +217,12 @@ const Header: React.FC = () => {
             margin-left: auto;
           }
 
+          .right button {
+            background-color: transparent;
+          }
+
           .right a {
-            border: 1px solid var(--geist-foreground);
+            background-color: var(--geist-foreground);
             padding: 0.5rem 1rem;
             border-radius: 3px;
           }

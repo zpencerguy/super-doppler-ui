@@ -18,14 +18,14 @@ const MainFloorCard: React.FC<{ collection: MainFloorProps }> = ({ collection })
     return (
         <Paper
             sx={{
-            position: 'relative',
-            backgroundColor: 'grey.800',
-            color: '#fff',
-            mb: 4,
-            backgroundSize: 'cover',
-            backgroundRepeat: 'no-repeat',
-            backgroundPosition: 'center',
-            backgroundImage: `url(${collection.imageurl})`,
+                position: 'relative',
+                backgroundColor: 'grey.800',
+                color: '#fff',
+                mb: 4,
+                backgroundSize: 'cover',
+                backgroundRepeat: 'no-repeat',
+                backgroundPosition: 'center',
+                backgroundImage: `url(${collection.imageurl})`,
             }}
         >
             {/* Increase the priority of the hero background image */}
@@ -55,7 +55,7 @@ const MainFloorCard: React.FC<{ collection: MainFloorProps }> = ({ collection })
                 <Typography variant="h5" color="inherit" paragraph>
                     Floor price - {collection.price} SOL
                 </Typography>
-                <Link variant="subtitle1" href="create">
+                <Link variant="subtitle1" href="/create">
                     Make prediction...
                 </Link>
                 </Box>

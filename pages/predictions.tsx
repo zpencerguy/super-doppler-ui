@@ -7,27 +7,6 @@ import Prediction, { PredictionProps } from '../components/Predictions';
 import prisma from '../lib/prisma';
 
 
-// index.tsx
-// export const getStaticProps: GetStaticProps = async () => {
-//   const feed = await prisma.post.findMany({
-//     where: { published: true },
-//     include: {
-//       author: {
-//         select: { name: true },
-//       },
-//     },
-//   });
-//   return {
-//     props: { feed },
-//     revalidate: 10,
-//   };
-// };
-
-
-// type Props = {
-//   feed: PostProps[]
-// }
-
 export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
   const session = await getSession({ req });
   if (!session) {

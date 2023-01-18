@@ -14,8 +14,8 @@ const Layout: React.FC<Props> = (props) => (
     <style jsx global>{`
       html {
         box-sizing: border-box;
-        background-image: url(${bg.src});
-        background-color: transparent;
+        background: url(${bg.src});
+        background: transparent;
       }
 
       *,
@@ -31,8 +31,6 @@ const Layout: React.FC<Props> = (props) => (
         font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
           Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji",
           "Segoe UI Symbol";
-        background: transparent;
-        background-color: transparent;
       }
 
       input,
@@ -47,8 +45,6 @@ const Layout: React.FC<Props> = (props) => (
     <style jsx>{`
       .layout {
         padding: 0 2rem;
-        background: transparent;
-        background-color: transparent;
       }
     `}</style>
   </div>

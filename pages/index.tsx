@@ -68,7 +68,7 @@ const Collections: React.FC<Props> = (props) => {
       <div className="page">
         <h1>Super Forecaster</h1>
         <p>
-          Make a predictions and <a href="https://twitter.com/Super4caster">@Super4caster</a> will remember and tweet the outcome!
+          Make a prediction and <a href="https://twitter.com/Super4caster">@Super4caster</a> will remember and tweet the outcome!
         </p>
         
         <h1>Collections</h1>

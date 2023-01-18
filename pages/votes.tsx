@@ -115,7 +115,7 @@ const Votes: React.FC<Props> = (props) => {
       <div className="page">
         <h1>DAO Votes</h1>
         <main>
-        <GridList cellHeight={"auto"} className={classes.gridList} spacing={0}>
+        <GridList cellHeight={"auto"} className={classes.gridList}>
         {props.collections.map((collection) => (
           <CollectionCard collection={collection}></CollectionCard>
           // <Card className={classes.card}>

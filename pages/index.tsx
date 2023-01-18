@@ -9,12 +9,11 @@ import MainFloorCard, { MainFloorProps } from '../components/FloorCard'
 import prisma from '../lib/prisma';
 
 export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
-  const session = await getSession({ req });
-  if (!session) {
-    res.statusCode = 403;
-    return { props: { drafts: [] } };
-  }
-
+  // const session = await getSession({ req });
+  // if (!session) {
+  //   res.statusCode = 403;
+  //   return { props: { drafts: [] } };
+  // }
 
   const collections = await prisma.$queryRaw`select c.id, c."name" , c.image as imageurl, fp.price, p.predictions::float as predictions
   from public."floorPrices" fp 
@@ -40,6 +39,7 @@ const Collections: React.FC<Props> = (props) => {
     return (
       <Layout>
           <div className="page">
+            <main>
             <h1>Super Forecaster</h1>
             <p>
               The climate of the NFT market is always changing, with floor prices fluctuating on a daily basis. Can you guess where the floor will be tomorrow? or 7 days from now? 
@@ -50,6 +50,12 @@ const Collections: React.FC<Props> = (props) => {
             <p>
               Your prediction will be tweeted out by <a href="https://twitter.com/Super4caster">@Super4caster</a> as well as the outcome!
             </p>
+            {props.collections.map((collection) => (
+            <div key={collection.id} className="collection">
+              <MainFloorCard collection={collection} />
+            </div>
+          ))}
+            </main>
             
           </div>
           

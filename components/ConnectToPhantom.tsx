@@ -9,7 +9,15 @@ interface Phantom {
 }
 
 const ConnectToPhantom = () => {
-  const [phantom, setPhantom] = useState<Phantom | null>(null);
+  const [phantom, setPhantom] = useState(null);
+  const [walletAddress, setWalletAddress] = useState(null);
+
+  if (typeof window !== "undefined") {
+    // const isPhantomConnected = localStorage.getItem("walletConnected");
+    // if (isPhantomConnected == "connected") {
+    //   console.log("You are connected to Phantom Wallet");
+    // }
+  }
 
   useEffect(() => {
     if ("solana" in window) {
@@ -19,9 +27,13 @@ const ConnectToPhantom = () => {
 
   const [connected, setConnected] = useState(false);
 
+
   useEffect(() => {
     phantom?.on("connect", () => {
       setConnected(true);
+      console.log(
+        'Connected with public key:'
+      );
     });
 
     phantom?.on("disconnect", () => {
@@ -38,25 +50,37 @@ const ConnectToPhantom = () => {
   };
 
   if (phantom) {
+    
     if (connected) {
+      if (typeof window !== "undefined") {
+        localStorage.setItem("walletConnected", "connected")
+
+        return (
+          <button
+            onClick={disconnectHandler}
+            className="py-2 px-4 border border-purple-700 rounded-md text-sm font-medium text-purple-700 whitespace-nowrap hover:bg-purple-200"
+          >
+            Disconnect
+          </button>
+        );
+      }
+      
+    }
+
+    if (typeof window !== "undefined") {
+      localStorage.setItem("walletConnected", "disconnected")
+
       return (
         <button
-          onClick={disconnectHandler}
-          className="py-2 px-4 border border-purple-700 rounded-md text-sm font-medium text-purple-700 whitespace-nowrap hover:bg-purple-200"
+          onClick={connectHandler}
+          className="bg-purple-500 py-2 px-4 border border-transparent rounded-md text-sm font-medium text-white whitespace-nowrap hover:bg-opacity-75"
         >
-          Disconnect
+          Connect to Phantom
         </button>
       );
     }
 
-    return (
-      <button
-        onClick={connectHandler}
-        className="bg-purple-500 py-2 px-4 border border-transparent rounded-md text-sm font-medium text-white whitespace-nowrap hover:bg-opacity-75"
-      >
-        Connect to Phantom
-      </button>
-    );
+    
   }
 
   return (

@@ -88,7 +88,7 @@ const Draft: React.FC = () => {
             rows={8}
             value={content}
           />
-          <input  type="submit" value="Create" />
+          <input  type="submit" value="Create" className="submitButton rounded-md py-2 px-4 text-sm font-medium" />
           <a className="back" href="#" onClick={() => Router.push('/')}>
             or Cancel
           </a>

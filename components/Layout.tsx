@@ -100,6 +100,13 @@ const Layout: React.FC<Props> = (props) => (
       .disconnected:hover {
         background-color: rgba(126, 34, 206, 0.75);
       }
+
+      .submitButton:hover {
+        background-color: rgba(156, 163, 175, 0.75) !important;
+        cursor: pointer !important;
+      }
+
+
     `}</style>
     <style jsx>{`
       .layout {

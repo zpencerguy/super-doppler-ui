@@ -1,11 +1,18 @@
 // pages/drafts.tsx
 
 import React from 'react';
+import Router from 'next/router';
+import NProgress from 'nprogress';
+import 'nprogress/nprogress.css';
 import { GetServerSideProps } from 'next';
 import { useSession, getSession } from 'next-auth/react';
 import Layout from '../components/Layout';
 import Prediction, { PredictionProps } from '../components/Predictions';
 import prisma from '../lib/prisma';
+
+Router.events.on('routeChangeStart', () => NProgress.start()); 
+Router.events.on('routeChangeComplete', () => NProgress.done()); 
+Router.events.on('routeChangeError', () => NProgress.done());
 
 
 export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {

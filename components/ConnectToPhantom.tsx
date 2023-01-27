@@ -58,7 +58,7 @@ const ConnectToPhantom = () => {
         return (
           <button
             onClick={disconnectHandler}
-            className="py-2 px-4 border border-purple-700 rounded-md text-sm font-medium text-purple-700 whitespace-nowrap hover:bg-purple-200"
+            className="bg-purple-500 py-2 px-4 border border-transparent rounded-md text-sm font-medium text-white whitespace-nowrap hover:bg-opacity-75 connected"
           >
             Disconnect
           </button>
@@ -73,7 +73,7 @@ const ConnectToPhantom = () => {
       return (
         <button
           onClick={connectHandler}
-          className="bg-purple-500 py-2 px-4 border border-transparent rounded-md text-sm font-medium text-white whitespace-nowrap hover:bg-opacity-75"
+          className="bg-purple-500 py-2 px-4 border border-transparent rounded-md text-sm font-medium text-white whitespace-nowrap hover:bg-opacity-75 disconnected"
         >
           Connect to Phantom
         </button>

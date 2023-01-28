@@ -53,8 +53,11 @@ const Draft: React.FC = () => {
           <select onChange={(e) => setCollectionSlug(e.target.value)}>
             <option value="" disabled selected>Select Collection</option>
             <option value="aurory">Aurory</option>
+            <option value="bonkz">Bonkz</option>
+            <option value="thedegendao">DegenDAO</option>
             <option value="degenerate_trash_pandas">Degenerate Trash Pandas</option>
             <option value="degenerate_ape_academy">Degenerate Ape Academy</option>
+            <option value="duelbots">Duelbots</option>
             <option value="solgods">Gods</option>
             <option value="taiyopilots">Taiyo Pilots</option>
             <option value="danger_valley_ducks">Danger Valley Ducks</option>

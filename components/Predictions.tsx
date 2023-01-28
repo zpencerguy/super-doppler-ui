@@ -10,6 +10,7 @@ export type PredictionProps = {
   name: string;
   imageurl: string;
   direction: string;
+  duration: string;
   start_price: Number;
   end_price: Number;
   date: Date;
@@ -28,12 +29,12 @@ const Prediction: React.FC<{ collection: PredictionProps }> = ({ collection }) =
   const minutes = date.getMinutes();
   const hours = date.getHours();
   const seconds = date.getSeconds();
-  const myFormattedDate = day+"-"+(monthIndex+1)+"-"+year+" "+ hours+":"+minutes+":"+seconds;
+  const myFormattedDate = (monthIndex+1)+"-"+day+"-"+year+" "+ hours+":"+minutes+":"+seconds;
 
   return (
     <div>
       <h2>{collection.name}</h2>
-      <h4>Predicted direction: {collection.direction.toUpperCase()}</h4>
+      <h4>Predicted to go {collection.direction.toUpperCase()} in {collection.duration} days</h4>
       <h4>Starting price: {collection.start_price} SOL</h4>
       <h4>Predicted price: {collection.end_price} SOL</h4>
       <h4>Prediction made on: { myFormattedDate }</h4>

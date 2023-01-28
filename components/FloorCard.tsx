@@ -10,7 +10,9 @@ export type MainFloorProps = {
     name: string;
     imageurl: string;
     price: Number;
-    predictions: Number;
+    up_predictions: Number;
+    down_predictions: Number;
+    avg_prediction_price: Number;
   };
 
 
@@ -54,10 +56,16 @@ const MainFloorCard: React.FC<{ collection: MainFloorProps }> = ({ collection })
                         {collection.name}
                     </Typography>
                     <Typography variant="h5" color="inherit" paragraph>
-                        Floor price - {collection.price.toFixed(2)} SOL
+                        Floor price: {collection.price.toFixed(2)} SOL
                     </Typography>
                     <Typography variant="h5" color="inherit" paragraph>
-                        Number of predictions - {collection.predictions}
+                        Upward predictions: {collection.up_predictions}
+                    </Typography>
+                    <Typography variant="h5" color="inherit" paragraph>
+                        Downward predictions: {collection.down_predictions}
+                    </Typography>
+                    <Typography variant="h5" color="inherit" paragraph>
+                        Avg price prediction: {collection.avg_prediction_price.toFixed(2)} SOL
                     </Typography>
                     <Link variant="subtitle1" href="/create">
                         Make prediction...

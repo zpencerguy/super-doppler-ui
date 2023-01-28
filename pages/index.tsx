@@ -15,13 +15,16 @@ export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
   //   return { props: { drafts: [] } };
   // }
 
-  const collections = await prisma.$queryRaw`select c.id, c."name" , c.image as imageurl, fp.price, p.predictions::float as predictions
+  const collections = await prisma.$queryRaw`select c.id, c."name" , c.image as imageurl, fp.price, coalesce(p.predictions::float,0) as up_predictions, coalesce(p2.predictions::float,0) as down_predictions,
+  coalesce(p3.predictions::float,0) as avg_prediction_price
   from public."floorPrices" fp 
   inner join (select max("date") date, collection_id from public."floorPrices" group by collection_id) fp2 on fp."date" = fp2."date" and fp.collection_id = fp2.collection_id 
   inner join public.project c 
       on fp.collection_id = c.id
-  inner join (select count(id) as predictions, slug from public.predict group by slug) p on c.slug = p.slug
-  order by c.id desc`
+  left join (select count(id) as predictions, slug from public.predict where direction = 'up' group by slug) p on c.slug = p.slug
+  left join (select count(id) as predictions, slug from public.predict where direction = 'down' group by slug) p2 on c.slug = p2.slug
+  left join (select avg(end_price) as predictions, slug from public.predict where direction = 'down' group by slug) p3 on c.slug = p3.slug
+  order by avg_prediction_price desc`
 
   return {
     props: { collections },
